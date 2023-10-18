@@ -33,7 +33,6 @@ public class ChildrenActivity extends AppCompatActivity {
                 startActivity(intxt);
                 finish();
             }
-
         }
         if(v.getId()==R.id.bt_children_list){
             Intent intentList = new Intent(this, ListActivity.class);
