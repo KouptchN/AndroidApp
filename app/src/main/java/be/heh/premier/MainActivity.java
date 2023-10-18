@@ -14,6 +14,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle extratxt = this.getIntent().getExtras();
+        if(extratxt != null)
+        {
+            Toast.makeText(getApplicationContext(), "votre login est : "
+                            + (extratxt.getString("login")) + "\n"
+                            + "votre password est : " + (extratxt.getString("pwd")) + "\n", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
     public void onMainClickManager(View v) {
 // Récupérer la vue et accéder au bouton
