@@ -34,23 +34,25 @@ public class ChildrenActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
             else {
-                String str = et_children_login.getText().toString() + "#" +
-                        et_children_pwd.getText().toString() + "#";
-                Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-                try {
-                    FileOutputStream ous = openFileOutput("monfichier.txt", MODE_APPEND);
-                    byte[] tab;
-                    tab = str.toString().getBytes();
-                    ous.write(tab);
-                    ous.close();
-                }catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        }
+        if (v.getId()==R.id.bt_children_save){
+            String str = et_children_login.getText().toString() + "#" +
+                    et_children_pwd.getText().toString() + "#";
+            Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+            try {
+                FileOutputStream ous = openFileOutput("monfichier.txt", MODE_APPEND);
+                byte[] tab;
+                tab = str.toString().getBytes();
+                ous.write(tab);
+                ous.close();
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         if(v.getId()==R.id.bt_children_list){
