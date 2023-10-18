@@ -4,22 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+    SharedPreferences prefs_datas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bundle extratxt = this.getIntent().getExtras();
-        if(extratxt != null)
+        prefs_datas = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        if(!prefs_datas.getAll().isEmpty())
         {
             Toast.makeText(getApplicationContext(), "votre login est : "
-                            + (extratxt.getString("login")) + "\n"
-                            + "votre password est : " + (extratxt.getString("pwd")) + "\n", Toast.LENGTH_SHORT)
+                            + prefs_datas.getString("login","NULL") + "\n"
+                            + "votre password est : " + prefs_datas.getString("pwd","NULL") + "\n",
+                            Toast.LENGTH_SHORT)
                     .show();
         }
     }
