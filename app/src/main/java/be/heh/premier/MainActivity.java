@@ -44,12 +44,21 @@ public class MainActivity extends Activity {
                             .setMessage("Voulez-vous afficher l'activité Children ?")
                             .setCancelable(false)
                             .setIcon(R.mipmap.ic_launcher)
-                            .setPositiveButton("Oui", (dialog, which) -> {
-                                notifier();
-                                /*Intent intent = new Intent(getApplicationContext(), ChildrenActivity.class);
-                                startActivity(intent);*/
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+                                    notifier();
+
+                                    Intent intent = new Intent(getApplicationContext(), ChildrenActivity.class);
+                                    startActivity(intent);
+                                }
                             })
-                            .setNegativeButton("Annuler", (dialog, which) -> dialog.cancel())
+                            .setNegativeButton("Annuler",new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+                                    dialog.cancel();
+                                }
+                            })
                             .create().show();
         }
     }
@@ -61,7 +70,7 @@ public class MainActivity extends Activity {
         Notification.Builder notification = new Notification.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle("Notification !!!")
-                .setContentText("L'activité Children est disponible ! \n Niveau de batterie : "+batLevel+" \n ID : ")
+                .setContentText("L'activité Children est disponible ! \n ID : ")
                 .setContentIntent(pi)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.ic_launcher_background)
