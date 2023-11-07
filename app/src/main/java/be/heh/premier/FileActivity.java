@@ -34,10 +34,20 @@ public class FileActivity extends AppCompatActivity {
             ins.close();
             String[] items = out.toString().split("#");
             int i=0;
+            int j=0;
+            String chain="";
+            String name="";
             for (String item : items)
             {
-                tv_file_datas.setText(tv_file_datas.getText().toString() +
-                        "item " + Integer.toString(i+1) + " = " + item+"\n");
+                if(i%2==0) {
+                    j++;
+                    name="Login";
+                }else{
+                    name="Password";
+                }
+                 chain = tv_file_datas.getText().toString() + Integer.toString(j) + ". "+
+                         name  + " = " + item + "\n";
+                tv_file_datas.setText(chain);
                 i++;
             }
         }catch (FileNotFoundException e) { e.printStackTrace();}
