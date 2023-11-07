@@ -2,8 +2,11 @@ package be.heh.premier;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -39,5 +42,12 @@ public class FileActivity extends AppCompatActivity {
             }
         }catch (FileNotFoundException e) { e.printStackTrace();}
         catch (IOException e) {e.printStackTrace();}
+    }
+    public void onFileClickManager(View v) {
+        if (v.getId()==R.id.bt_file_children) {
+                Intent intent = new Intent(this, ChildrenActivity.class);
+                startActivity(intent);
+                finish();
+        }
     }
 }

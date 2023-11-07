@@ -68,4 +68,12 @@
         android:textSize="17sp"
         android:onClick="onChildrenClickManager"
         tools:ignore=" OnClick"/>
+    <Button
+        android:id="@+id/bt_children_File"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go file"
+        android:textSize="17sp"
+        android:onClick="onChildrenClickManager"
+        tools:ignore=" OnClick"/>
 </LinearLayout>

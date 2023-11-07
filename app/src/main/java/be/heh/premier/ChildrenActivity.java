@@ -39,6 +39,11 @@ public class ChildrenActivity extends AppCompatActivity {
                 finish();
             }
         }
+        if (v.getId()==R.id.bt_children_list) {
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
+                finish();
+        }
         if (v.getId()==R.id.bt_children_save){
             String str = et_children_login.getText().toString() + "#" +
                     et_children_pwd.getText().toString() + "#";
@@ -49,15 +54,16 @@ public class ChildrenActivity extends AppCompatActivity {
                 tab = str.toString().getBytes();
                 ous.write(tab);
                 ous.close();
+
             }catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        if(v.getId()==R.id.bt_children_list){
-            Intent intentList = new Intent(this, ListActivity.class);
-            startActivity(intentList);
+        if(v.getId()==R.id.bt_children_File){
+            Intent intentFile = new Intent(this, FileActivity.class);
+            startActivity(intentFile);
         }
     }
 }
