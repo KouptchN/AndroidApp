@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
@@ -44,42 +45,41 @@ public class MainActivity extends Activity {
                             .setMessage("Voulez-vous afficher l'activité Children ?")
                             .setCancelable(false)
                             .setIcon(R.mipmap.ic_launcher)
-                            .setPositiveButton("Oui", new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int which){
-                                    notifier();
-
-                                    Intent intent = new Intent(getApplicationContext(), ChildrenActivity.class);
-                                    startActivity(intent);
-                                }
+                            .setPositiveButton("Oui", (dialog, which) -> {
+                                notifier();
                             })
-                            .setNegativeButton("Annuler",new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialog, int which){
-                                    dialog.cancel();
-                                }
-                            })
+                            .setNegativeButton("Annuler", (dialog, which) -> dialog.cancel())
                             .create().show();
         }
     }
-    public void notifier(){
-        PendingIntent pi = PendingIntent.getActivity(this,0,new Intent(this,ChildrenActivity.class ), PendingIntent.FLAG_IMMUTABLE);
-//count = Integer.getInteger(BatteryManager.EXTRA_LEVEL);
+    private void notifier() {
+        Intent intent = new Intent(this, ChildrenActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         BatteryManager bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        Notification.Builder notification = new Notification.Builder(this)
+        NotificationManager noma = getSystemService(NotificationManager.class);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default_channel", "Default Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            noma.createNotificationChannel(channel);
+        }
+
+        Notification.Builder notification = new Notification.Builder(this, "default_channel")
                 .setAutoCancel(true)
-                .setContentTitle("Notification !!!")
-                .setContentText("L'activité Children est disponible ! \n ID : ")
+                .setContentTitle("Notification !")
+                .setContentText("Cliquez pour passer a l'activité Enfant.\n"+"Niveau de batterie :"+batLevel)
                 .setContentIntent(pi)
-                .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setWhen(System.currentTimeMillis())
                 .setNumber(++cpt);
+
         Notification notif = notification.build();
-        noma.notify(NOTIFY_ID,notif);
+
+        noma.notify(NOTIFY_ID, notif);
     }
-    public void arretNotifier(){
+
+    public void arretNotifier() {
+        NotificationManager noma = getSystemService(NotificationManager.class);
         noma.cancel(NOTIFY_ID);
     }
 }
